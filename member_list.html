@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style>
+            table {
+                width: 100%;
+
+            }
+            table th { font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>NSR Task Registration Form</h1>
+
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Period</th>
+                <th>Task Description</th>
+            </tr>
+            <tr>
+                <td>From</td>
+                <td>To</td>
+                <td>Check in Location</td>
+            </tr>
+        </table>
+
+        <h2>Active Members</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile Phone</th>
+                    <th>Status</th>
+                    <th>#</th>
+                    <th>F/A</th>
+                    <th>Avi</th>
+                    <th>HEC</th>
+                    <th>Rope</th>
+                    <th>Signature</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for member in active_members %}
+                    <tr>
+                        <th>{{ member.last_name }}, {{ member.first_name }}</th>
+                        <th>{{ member.phone }}</th>
+                        <th>
+                            {% if member.member_class == None %}
+                                Active
+                            {% elif member.member_class == "Member In Training" %}
+                                MIT
+                            {% endif %}
+                        </th>
+                        <th>{{ member.callsign }}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Resource Members</h2>
+        <table class="table">
+            <tbody>
+                {% for member in resource_members %}
+                    <tr>
+                        <th>{{ member.last_name }}, {{ member.first_name }}</th>
+                        <th>{{ member.phone }}</th>
+                        <th>
+                            {{ member.member_class }}
+                        </th>
+                        <th>{{ member.callsign }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

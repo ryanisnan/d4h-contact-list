@@ -1,0 +1,4 @@
+__pycache__
+.env
+venv
+rendered_member_list.html
