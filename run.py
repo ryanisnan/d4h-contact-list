@@ -17,6 +17,24 @@ def get_d4h_headers():
     return headers
 
 
+def get_role_dict():
+    """
+    Query the D4H API and build a dict of role objects that we can use.
+    """
+    response = requests.get('https://api.ca.d4h.org/v2/team/roles', headers=get_d4h_headers())
+    roles_raw = response.json()['data']
+
+    role_swap = {
+        'Medical Team': 'AMP',
+        'Avalanche Forecaster': 'Avi',
+    }
+    roles = {}
+    for role in roles_raw:
+        title = role_swap.get(role['title'], role['title'])
+        roles[role['id']] = title
+    return roles
+
+
 def get_member_list():
     """
     Query the D4H API and build a list of member objects that we can use.
@@ -41,7 +59,9 @@ def get_member_list():
 
     # Clean that shit up
     members = list()
-    for member in members_raw:
+    for i, member in enumerate(members_raw):
+        if i == 0:
+            print(member.keys())
         name = member.get('name').replace('\t', ' ').strip()
         try:
             first_name, last_name = name.split(' ', maxsplit=1)
@@ -58,8 +78,16 @@ def get_member_list():
             'phone': member.get('mobilephone'),
             'callsign': member.get('ref'),
             'operational': operational,
-            'member_class': member_class
+            'member_class': member_class,
+            'default_role_id': member.get('default_role_id')
         })
+
+    return members
+
+
+def assign_resource_member_roles(members, roles_dict):
+    for member in members:
+        member['member_class'] = roles_dict.get(member['default_role_id'], member['member_class'])
 
     return members
 
@@ -75,6 +103,9 @@ def render_member_list(members):
     active_support = sorted(filter(lambda x: x.get('member_class') is not None and 'support' in x['member_class'].lower(), members), key=lambda x: x['last_name'])
     resource_members = sorted(filter(lambda x: x['member_class'] == 'Resource Member', members), key=lambda x: x['last_name'])
 
+    roles_dict = get_role_dict()
+    active_support = assign_resource_member_roles(active_support, roles_dict)
+    resource_members = assign_resource_member_roles(resource_members, roles_dict)
     with open('member_list.html') as f:
         template = Template(f.read())
         return template.render(
