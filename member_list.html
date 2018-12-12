@@ -2,15 +2,22 @@
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
-            table {
-                width: 100%;
-
+            .checkbox { font-weight: bold; font-size: 2rem; padding: 0; margin: 0; }
+            thead th { background-color: #DDD; }
+            td, th {
+                border: 1px solid rgba(0, 0, 0, 0.8);
+                line-height: 12px;
+                margin: 0;
+                padding: 0;
             }
-            table th { font-weight: bold; }
+            .rotated {
+                transform: rotate(-90deg);
+                display: block;
+            }
         </style>
     </head>
     <body>
-        <h1>NSR Task Registration Form</h1>
+        <h1 style="border-bottom: 2px solid #000;">Task #: <span style="float: right;">NSR Task Registration Form</span></h1>
 
         <table class="table">
             <tr>
@@ -19,9 +26,9 @@
                 <th>Task Description</th>
             </tr>
             <tr>
-                <td>From</td>
-                <td>To</td>
-                <td>Check in Location</td>
+                <th>From</th>
+                <th>To</th>
+                <th>Check in Location</th>
             </tr>
         </table>
 
@@ -29,14 +36,15 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Name</th>
                     <th>Mobile Phone</th>
                     <th>Status</th>
                     <th>#</th>
-                    <th>F/A</th>
-                    <th>Avi</th>
-                    <th>HEC</th>
-                    <th>Rope</th>
+                    <th><span class="rotated">F/A</span></th>
+                    <th><span class="rotated">Avi</span></th>
+                    <th><span class="rotated">HEC</span></th>
+                    <th><span class="rotated">Rope</span></th>
                     <th>Signature</th>
                 </tr>
             </thead>
@@ -44,6 +52,7 @@
             <tbody>
                 {% for member in active_members %}
                     <tr>
+                        <td class="checkbox">&#9633;</td>
                         <th>{{ member.last_name }}, {{ member.first_name }}</th>
                         <th>{{ member.phone }}</th>
                         <th>
@@ -51,6 +60,8 @@
                                 Active
                             {% elif member.member_class == "Member In Training" %}
                                 MIT
+                            {% else %}
+                                {{ member.member_class }}
                             {% endif %}
                         </th>
                         <th>{{ member.callsign }}</th>
