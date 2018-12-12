@@ -6,13 +6,17 @@ Clone this repository
 
 # Set up virtual environment
 
-`virtualenv -p python3 venv`
-`source venv/bin/activate`
+```
+virtualenv -p python3 venv && source venv/bin/activate
+pip install -r requirements.txt
+```
 
 # Set your D4H API key in your environment
 
-`echo export D4H_API_KEY=<your_api_key_here> > .env`
-`source .env`
+```
+echo export D4H_API_KEY=<your_api_key_here> > .env
+source .env
+```
 
 # Running the project
 
