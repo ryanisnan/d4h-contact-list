@@ -36,19 +36,18 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Mobile Phone</th>
-                    <th>Status</th>
-                    <th>#</th>
-                    <th><span class="rotated">F/A</span></th>
-                    <th><span class="rotated">Avi</span></th>
-                    <th><span class="rotated">HEC</span></th>
-                    <th><span class="rotated">Rope</span></th>
-                    <th>Signature</th>
+                    <th width="5%"></th>
+                    <th width="20%">Name</th>
+                    <th width="15%">Mobile Phone</th>
+                    <th width="8%">Status</th>
+                    <th width="5%">#</th>
+                    <th width="5%"><span class="rotated">F/A</span></th>
+                    <th width="5%"><span class="rotated">Avi</span></th>
+                    <th width="5%"><span class="rotated">HEC</span></th>
+                    <th width="5%"><span class="rotated">Rope</span></th>
+                    <th width="25%">Signature</th>
                 </tr>
             </thead>
-
             <tbody>
                 {% for member in active_members %}
                     <tr>
@@ -77,15 +76,71 @@
 
         <h2>Resource Members</h2>
         <table class="table">
+            <thead>
+                <tr>
+                    <th width="5%"></th>
+                    <th width="20%">Name</th>
+                    <th width="15%">Mobile Phone</th>
+                    <th width="8%">Status</th>
+                    <th width="5%">#</th>
+                    <th width="5%"><span class="rotated">F/A</span></th>
+                    <th width="5%"><span class="rotated">Avi</span></th>
+                    <th width="5%"><span class="rotated">HEC</span></th>
+                    <th width="5%"><span class="rotated">Rope</span></th>
+                    <th width="25%">Signature</th>
+                </tr>
+            </thead>
             <tbody>
                 {% for member in resource_members %}
                     <tr>
+                        <td class="checkbox">&#9633;</td>
                         <th>{{ member.last_name }}, {{ member.first_name }}</th>
                         <th>{{ member.phone }}</th>
                         <th>
                             {{ member.member_class }}
                         </th>
                         <th>{{ member.callsign }}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Active Support Members</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="5%"></th>
+                    <th width="20%">Name</th>
+                    <th width="15%">Mobile Phone</th>
+                    <th width="8%">Status</th>
+                    <th width="5%">#</th>
+                    <th width="5%"><span class="rotated">F/A</span></th>
+                    <th width="5%"><span class="rotated">Avi</span></th>
+                    <th width="5%"><span class="rotated">HEC</span></th>
+                    <th width="5%"><span class="rotated">Rope</span></th>
+                    <th width="25%">Signature</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in active_support %}
+                    <tr>
+                        <td class="checkbox">&#9633;</td>
+                        <th>{{ member.last_name }}, {{ member.first_name }}</th>
+                        <th>{{ member.phone }}</th>
+                        <th>
+                            {{ member.member_class }}
+                        </th>
+                        <th>{{ member.callsign }}</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -72,12 +72,14 @@ def render_member_list(members):
         return member['operational'] is True and member['member_class'] != 'Resource Member'
 
     active_members = sorted(filter(filter_active_members, members), key=lambda x: x['last_name'])
+    active_support = sorted(filter(lambda x: x.get('member_class') is not None and 'support' in x['member_class'].lower(), members), key=lambda x: x['last_name'])
     resource_members = sorted(filter(lambda x: x['member_class'] == 'Resource Member', members), key=lambda x: x['last_name'])
 
     with open('member_list.html') as f:
         template = Template(f.read())
         return template.render(
             active_members=active_members,
+            active_support=active_support,
             resource_members=resource_members
         )
 
